@@ -216,7 +216,7 @@ import { mapActions, mapGetters } from 'vuex'
 import { imageChecker, emptyStringChecker } from '../../../mixins'
 import { Youtube, Vimeo } from '../../../components/videos'
 import ActorPreview from '../../../components/general/PurpleSpinner.vue'
-import DetailLayout from '../../../pages/DetailLayout'
+import DetailLayout from '../../../views/DetailLayout'
 
 export default {
     name: 'Movie',
