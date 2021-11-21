@@ -70,12 +70,28 @@
                     {{ tv.overview | charactersLimiter(300) }}
                 </p>
             </div>
-            <div>
-                <div>
-                    <font-awesome-icon></font-awesome-icon>
-                    <sapn></sapn>
+            <div class="flex items-center pt-2 border-t border-none">
+                <div class="text-sm">
+                    <font-awesome-icon incon="calendar-alt"></font-awesome-icon>
+                    <sapn class="ml-1 text-black">
+                        {{ tv.first_air_date }}
+                    </sapn>
                 </div>
             </div>
         </div>
     </router-link>
 </template>
+
+<script>
+import { imageChecker } from '../../../mixins'
+
+export default {
+    name: 'LatestTv',
+    props: ['tv'],
+    micins: [imageChecker]
+}
+</script>
+
+<style lang="scss" scoped>
+
+</style>
