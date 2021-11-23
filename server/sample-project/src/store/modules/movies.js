@@ -14,47 +14,47 @@ const state = {
         { link: 'top_rated', label: 'Top Rated', samples: [] },
         { link: 'upcoming', label: 'Upcoming', samples: [] }
     ]
-}
+};
 
 const mutations = {
-    SET_MOVIES(state, {moveis}) {
+    SET_MOVIES(state, { movies }) {
         state.moveis = movies;
     },
-    SET_TRENDING(state, {movies}) {
-        state.moveis;
+    SET_TRENDING(state, { movies }) {
+        state.movies = movies;
     },
-    SET_LATEST_MOVIES(state, {movie}) {
+    SET_LATEST_MOVIES(state, { movie }) {
         state.latestMovie = movie;
     },
-    SET_MOVIES_PAGE(state, {page}) {
+    SET_MOVIES_PAGE(state, { page }) {
         state.page = page;
     },
-    ADD_MOVIES(state, {movies}) {
+    ADD_MOVIES(state, { movies }) {
         state.movies.push(...movies);
     },
-    SET_MOVIES_LOADING(state, {loading}) {
+    SET_MOVIES_LOADING(state, { loading }) {
         state.loading = loading;
     },
-    SET_MOVIES_LIST_SAMPLES(state, {listLink, samples}) {
+    SET_MOVIES_LIST_SAMPLES(state, { listLink, samples }) {
         let listIndex = state.movieLists.findIndex((list) => {
-            list.link === listLink
+            list.link === listLink;
         });
         state.movieLists[listIndex].samples = samples;
     }
 };
 
 const actions = {
-    setMoviesLoading: ({commit}, loading) => {
+    setMoviesLoading: ({ commit }, loading) => {
         commit('SET_MOVEIS_LOADING', {
             loading: loading
         });
     },
-    fetchLatestMovie: ({commit, dispatch}) => {
+    fetchLatestMovie: ({ commit, dispatch }) => {
         dispatch('setMoviesLoading', true);
         let lang = languages.getters.languageCurrent(languages.state);
         Axios.get(
             '/movie/latest?api_key=' +
-            process.env.VUE_APP_TMDB_API_KEY + 
+            process.env.VUE_APP_TMDB_API_KEY +
             '&language=' +
             lang.value
         )
@@ -68,20 +68,20 @@ const actions = {
                 console.log(error);
             });
     },
-    fetchMovieListData: ({commit}) => {
-        let lang =languages.getters.languageCurrent(languages.state);
+    fetchMovieListData: ({ commit }) => {
+        let lang = languages.getters.languageCurrent(languages.state);
         state.movieLists.forEach((list) => {
             Axios.get(
                 '/movie/' +
                 list.link + '?api_key=' +
-                process.env.VUE_APP_TMDB_API_KEY + 
+                process.env.VUE_APP_TMDB_API_KEY +
                 '&language=' +
                 lang.value
             )
                 .then((res) => {
                     commit('SET_MOVIE_LIST_SAMPLES', {
                         listLink: list.link,
-                        samples:res.data.results
+                        samples: res.data.results
                     });
                 })
                 .catch((error) => {
@@ -89,24 +89,24 @@ const actions = {
                 });
         });
     },
-    fetchMovies: ({commit, dispatch}, [listType, page=1]) => {
+    fetchMovies: ({ commit, dispatch }, [listType, page = 1]) => {
         dispatch('setMoviesLoading', true);
-        let lang= languages.getters.languageCurrent(languages.state);
+        let lang = languages.getters.languageCurrent(languages.state);
         listType = state.movieLists.find((list) => list.link === listType) === undefined
             ? state.movieLists[0].link
-            :listType;
+            : listType;
         Axios.get(
-            '/movie/' + 
-            listType + 
-            '?pai_key=' + 
-            process.env.VUE_APP_TMDB_API_KEY + 
+            '/movie/' +
+            listType +
+            '?pai_key=' +
+            process.env.VUE_APP_TMDB_API_KEY +
             '&language=' +
             lang.value +
             '&page=' +
             page
         )
             .then((res) => {
-                commit(page === 1? 'SET_movies' : 'ADD_MOVIES,', {
+                commit(page === 1 ? 'SET_movies' : 'ADD_MOVIES,', {
                     moveis: res.data.results
                 });
                 commit('SET_MOVIES_PAGE', {
@@ -116,9 +116,9 @@ const actions = {
             })
             .catch((error) => {
                 console.log(error);
-            })
+            });
     },
-    fetchTrendingMovie: ({commit}) => {
+    fetchTrendingMovie: ({ commit }) => {
         let lang = languages.getters.languageCurrent(languages.state);
         Axios.get(
             '/trending/movie/week?api_key=' +
@@ -133,7 +133,7 @@ const actions = {
             })
             .catch((error) => {
                 console.log(error);
-            })
+            });
     }
 };
 
