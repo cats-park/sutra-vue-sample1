@@ -5,7 +5,7 @@
                 <div class="flex justify-around">
                     <img
                         class="w-16 h-16"
-                        src="../../../public/moviedb_logo.png"
+                        src="../../assets/logo.png"
                         width="400"
                         height="400"
                         alt="themovideodb_logo"
@@ -101,7 +101,7 @@
                                 px-2
                                 py-2
                                 bg-white
-                                rounded-md 
+                                rounded-md
                                 shadow
                                 dark-mode:bg-gray-800
                             "
@@ -110,7 +110,11 @@
                                 <li>
                                     <router-link
                                         to="/"
-                                        class="hover:text-pink-400 text-black p-2"
+                                        class="
+                                            hover:text-pink-400
+                                            text-black
+                                            p-2
+                                        "
                                         exact-active-class="text-pink-500"
                                         exact
                                     >
@@ -120,7 +124,11 @@
                                 <li>
                                     <router-link
                                         to="/tv_home"
-                                        class="hover:text-pink-400 text-black p-2"
+                                        class="
+                                            hover:text-pink-400
+                                            text-black
+                                            p-2
+                                        "
                                         exact-active-class="text-pink-500"
                                         exact
                                     >
@@ -130,7 +138,11 @@
                                 <li>
                                     <router-link
                                         to="/movie_categories"
-                                        class="hover:text-pink-400 text-black p-2"
+                                        class="
+                                            hover:text-pink-400
+                                            text-black
+                                            p-2
+                                        "
                                         exact-active-class="text-pink-500"
                                         exact
                                     >
@@ -140,7 +152,11 @@
                                 <li>
                                     <router-link
                                         to="/tv_series_categories"
-                                        class="hover:text-pink-400 text-black p-2"
+                                        class="
+                                            hover:text-pink-400
+                                            text-black
+                                            p-2
+                                        "
                                         exact-active-class="text-pink-500"
                                         exact
                                     >
@@ -148,9 +164,18 @@
                                     </router-link>
                                 </li>
                                 <li>
-                                    <div class="flex w-1/2 sm:w-auto justify-center">
+                                    <div
+                                        class="
+                                            flex
+                                            w-1/2
+                                            sm:w-auto
+                                            justify-center
+                                        "
+                                    >
                                         <select
-                                            @charge="updateCurrentLanguage($event)"
+                                            @charge="
+                                                updateCurrentLanguage($event)
+                                            "
                                             class="
                                                 text-center
                                                 appearance-none
@@ -166,7 +191,7 @@
                                             "
                                         >
                                             <option
-                                                v-for="(language, index) in languageList" 
+                                                v-for="(language, index) in languageList"
                                                 v-bind:key="index"
                                                 v-bind:value="language.value"
                                                 v-bind:selected="language.value === languageCurrent.value"
@@ -198,10 +223,12 @@
                         "
                     >
                         <option
-                            v-for="(language, index) in languageList" 
+                            v-for="(language, index) in languageList"
                             v-bind:key="index"
                             v-bind:value="language.value"
-                            v-bind:selected="language.value === languageCurrent.value"
+                            v-bind:selected="
+                                language.value === languageCurrent.value
+                            "
                         >
                             {{ language.label }}
                         </option>
@@ -213,29 +240,29 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters } from "vuex";
 
 export default {
-    name: 'Header',
+    name: "Header",
     data() {
         return {
-            mobileMenuOpend: false
+            mobileMenuOpend: false,
         };
     },
     computed: {
-        ...mapGetters(['languageCurrent', 'languageList'])
+        ...mapGetters(["languageCurrent", "languageList"]),
     },
     methods: {
         ...mapActions({
-            changeCurrentLanguage: 'changeCurrentLanguage',
-            fetchLanguages: 'fetchLanguages'
+            changeCurrentLanguage: "changeCurrentLanguage",
+            fetchLanguages: "fetchLanguages",
         }),
         updateCurrentLanguage(event) {
             this.changeCurrentLanguage(event.target.value);
         },
         openMobileNavMenu() {
             this.mobileMenuOpend = !this.mobileMenuOpend;
-        }
+        },
     },
     created() {
         this.fetchLanguages();
@@ -243,6 +270,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

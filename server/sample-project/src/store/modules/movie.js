@@ -12,32 +12,35 @@ const state = {
 };
 
 const mutations = {
-    SET_MOVIE(state, {movie}) {
+    SET_MOVIE(state, { movie }) {
         state.movie = movie;
     },
-    SET_MOVIECREDITS(state, {credits}) {
+    SET_MOVIE_CREDITS(state, { credits }) {
         state.movieCredits = credits;
     },
-    SET_MOVIE_VIDEOS(state, {videos}) {
+    SET_MOVIE_LOADING(satte, { loading }) {
+        state.loading = loading;
+    },
+    SET_MOVIE_VIDEOS(state, { videos }) {
         state.videos = videos;
     },
-    SET_MOVIE_VIDEOS_LOADING(state, {videosLoad}) {
+    SET_MOVIE_VIDEOS_LOADING(state, { videosLoad }) {
         state.videosLoad = videosLoad;
     }
 };
 
 const actions = {
-    setMovieLoading: ({commit}, loading) => {
+    setMovieLoading: ({ commit }, loading) => {
         commit('SET_MOVIE_LOADING', {
             loading: loading
         });
     },
-    setMovieVideosLoad: ({commit}, videosLoad) => {
+    setMovieVideosLoad: ({ commit }, videosLoad) => {
         commit('SET_MOVIE_VIDEOS_LOADING', {
             videosLoad: videosLoad
         });
     },
-    fetchMovie: ({commit, dispatch}, movieId) => {
+    fetchMovie: ({ commit, dispatch }, movieId) => {
         dispatch('setMovieLoading', true);
         let lang = languages.getters.languageCurrent(languages.state);
         Axios.get(
@@ -55,16 +58,19 @@ const actions = {
                 commit('SET_MOVIE_VIDEOS', {
                     videos: []
                 });
+                dispatch('fetchMovieCredits', movieId);
+                dispatch('setMovieLoading', false);
+                dispatch('setMovieVideosLoad', false);
             })
             .catch((error) => {
                 console.log(error);
             });
     },
-    fetchMovieCredits: ({commit}, movieId) => {
+    fetchMovieCredits: ({ commit }, movieId) => {
         let lang = languages.getters.languageCurrent(languages.state);
         Axios.get(
-            '/movie/' + 
-            movieId + 
+            '/movie/' +
+            movieId +
             'credits?api_key=' +
             process.env.VUE_APP_TMDB_API_KEY +
             '&language=' +
@@ -79,7 +85,7 @@ const actions = {
                 console.log(error);
             });
     },
-    fetchMovieVideos: ({commit, dispatch}, movieId) => {
+    fetchMovieVideos: ({ commit, dispatch }, movieId) => {
         let lang = languages.getters.languageCurrent(languages.state);
         Axios.get(
             '/movie/' +
@@ -114,7 +120,7 @@ const getters = {
     movieVideos: (state) => {
         return state.videos;
     },
-    setMovieVideosLoad: (state) => {
+    movieVideosLoad: (state) => {
         return state.videosLoad;
     }
 };

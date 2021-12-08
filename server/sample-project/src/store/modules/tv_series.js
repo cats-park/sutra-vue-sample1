@@ -73,7 +73,7 @@ const actions = {
         dispatch('setTvSeriesLoading', true);
         let lang = languages.getters.languageCurrent(languages.state);
         listType =
-            state.tvLists.find((list) => list.link === listTYpe) === undefined
+            state.tvLists.find((list) => list.link === listType) === undefined
                 ? state.tvLists[0].link
                 : listType;
         Axios.get(

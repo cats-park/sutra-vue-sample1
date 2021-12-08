@@ -6,10 +6,10 @@ const state = {
 }
 
 const mutations = {
-    SET_CURRENT_LANGUAGE(state, {lang}) {
-        state.current = state.list.find(lang => langs.values === lang)
+    SET_CURRENT_LANGUAGE(state, { lang }) {
+        state.current = state.list.find(langs => langs.values === lang)
     },
-    SET_LANGUAGES(state, {languages}) {
+    SET_LANGUAGES(state, { languages }) {
         languages.forEach(languages => {
             state.list.push({
                 label: languages.english_name,
@@ -20,14 +20,14 @@ const mutations = {
 }
 
 const actions = {
-    changeCurrentLanguage: ({commit}, lang) => {
-        commit('SET_CURRENT_LANGUAGE', {lang})
+    changeCurrentLanguage: ({ commit }, lang) => {
+        commit('SET_CURRENT_LANGUAGE', { lang })
     },
-    fetchLanguaages: ({commit, dispatch}) => {
+    fetchLanguaages: ({ commit, dispatch }) => {
         Axios.get('/configuration/languages?api_key=' + process.env.VUE_APP_TMDB_API_KEY)
-            .then((rens) => {
+            .then((res) => {
                 commit('SET_LANGUAGES', {
-                    languages: resizeBy.data
+                    languages: res.data
                 })
             })
             .then(() => {

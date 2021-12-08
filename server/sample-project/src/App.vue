@@ -14,9 +14,8 @@ const App = {
         }
     }
 
-export default {
-    App
-}
+export default App;
+
 </script>
 
 <style lang="scss">

@@ -1,5 +1,4 @@
 import Axios from 'axios'
-import { list } from 'purgecss/node_modules/postcss';
 import languages from './languages.js'
 
 const state = {
@@ -145,7 +144,7 @@ const getters = {
         return state.page;
     },
     moviesLoading: (state) => {
-        return loading;
+        return state.loading;
     },
     latestMovie: (state) => {
         return state.latestMovie;

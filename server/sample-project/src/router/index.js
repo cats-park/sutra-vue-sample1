@@ -1,28 +1,29 @@
-import Vue from "vue"
-import VueRouter from "vue-router"
+import Vue from "vue";
+import VueRouter from "vue-router";
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 let routes = [
     {
-        path: '*',
-        redirect: "/"
+        path: "*",
+        redirect: "/",
     },
+];
 
-]
-
-const modules = require.context("./", true, /router\.js$/)
+const modules = require.context("./", true, /router\.js$/);
 modules
     .keys()
-    .filter((module) => module !== "./router.js")
-    .map((module) => {
-        routes = routes.concat(modules(module).default)
+    .filter((module) => {
+        module !== "./router.js";
     })
+    .map((module) => {
+        routes = routes.concat(modules(module).default);
+    });
 
 const router = new VueRouter({
     mode: "history",
     base: process.env.BASE_URL,
-    routes
-})
+    routes,
+});
 
-export default router
+export default router;
