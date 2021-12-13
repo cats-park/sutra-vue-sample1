@@ -1,5 +1,5 @@
-import Axios from 'axios'
-import languages from './languages.js'
+import Axios from 'axios';
+import languages from './languages.js';
 
 const state = {
     tvSeries: [],
@@ -48,7 +48,7 @@ const actions = {
             tvLoading: tvLoading
         });
     },
-    fetchTvListsData: () => {
+    fetchTvListsData: ({ commit }) => {
         let lang = languages.getters.languageCurrent(languages.state);
         state.tvLists.forEach((list) => {
             Axios.get(
@@ -67,7 +67,7 @@ const actions = {
                 .catch((error) => {
                     console.log(error);
                 });
-        })
+        });
     },
     fetchTvSeries: ({ commit, dispatch }, [listType, page = 1]) => {
         dispatch('setTvSeriesLoading', true);
@@ -88,7 +88,7 @@ const actions = {
         )
             .then((res) => {
                 commit('SET_TY_SERIES_PAGE', {
-                    tvPage: res_data.page
+                    tvPage: res.data.page
                 });
                 dispatch('setTvSeriesLoading', false);
             })
